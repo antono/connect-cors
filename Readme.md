@@ -31,9 +31,15 @@
      server.listen(3000);
 
 
+## Testing
+
+    git submodule update --init
+    make test
+
 ## TODO
 
  - Implement handler for preflight request.
+ - Example app
 
 ## License 
 
