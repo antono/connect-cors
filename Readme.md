@@ -7,6 +7,34 @@
 ## Examples
 
 
+     var Connect = require('connect'),
+         CORS = require('connect-cors');
+     
+     var server = Connect.createServer(
+         CORS({
+    	    '/': {
+    	        origins: ['*'],
+     	        methods: ['GET'],
+    	        headers: ['X-Header-For'],
+            },
+            '/posts': {
+     	        origins: ['*'],
+     	        methods: ['GET', 'POST', 'PUT', 'DELETE'],
+            },
+        }),
+        function(req, res) {
+             res.writeHead(200, { 'Content-Type': 'text/plain' });
+             res.end('Hello World');
+        }
+     );
+
+     server.listen(3000);
+
+
+## TODO
+
+ - Implement handler for preflight request.
+
 ## License 
 
 (The MIT License)
