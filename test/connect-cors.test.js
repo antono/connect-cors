@@ -8,8 +8,7 @@ require.paths.unshift(__dirname + '/../lib');
 var connect = require('connect'),
     cors = require('connect-cors'),
     helpers = require('./helpers'),
-    assert = require('assert'),
-    http = require('http');
+    assert = require('assert');
 
 connect.cors = cors;
 
