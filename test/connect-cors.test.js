@@ -11,6 +11,8 @@ var connect = require('connect'),
     assert = require('assert'),
     http = require('http');
 
+connect.cors = cors;
+
 //
 // 4. Syntax
 //
@@ -140,29 +142,4 @@ module.exports = {
         req.end();
     },
 
-
-    // 6.1.5: To protect resources against cross-origin access with methods that have side
-    // effects an preflight request is made to ensure that the resource is ok with
-    // the request. The result of this request is stored in an preflight result cache.
-    'test 6.1.5': function() { 
-        var server = helpers.run(
-            connect.cors({
-                '/': {
-                    origins: ['http://antono.info'],
-                }
-            }),
-            function(req, res, next) {
-                res.writeHead(200);
-                res.end();
-            }
-        );
-        var req = server.request('OPTIONS', '/', { 'Origin': 'http://antono.info' });
-        req.addListener('response', function(res) {
-            res.addListener('end', function() {
-                assert.equal(res.headers['access-control-expose-headers'], 'X-Hello-World, X-For-Antono',
-                             "Test 'Access-Control-Expose-Headers' header");
-            })
-        })
-        req.end();
-    },
 }
