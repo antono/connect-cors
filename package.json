@@ -1,7 +1,7 @@
 {
   "name": "connect-cors",
   "description": "CORS middleware for connect",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "main": "./lib/connect-cors.js",
   "contributors": [ 
     { "name": "Antono Vasiljev", "email": "antono.vasiljev@gmail.com" }
