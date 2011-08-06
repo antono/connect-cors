@@ -8,8 +8,9 @@ A CORS module for Node.JS's Connect
 
 "pre-flighted" OPTIONS requests are supported
 
+
 Installation
----
+===
 
 Current Version:
 
@@ -88,22 +89,46 @@ If the top-level options are present, they will be used for any resource which d
 
 Resource-level directives override top-level directives
 
-  * origins - an array of origins. `undefined`, `null`, `[]`, and `['*']` will all default to '*'
-    * Example: `['http://example.com', 'http://domain.tld']`
-    * Browsers will see their origin exactly `Access-Control-Allow-Origin: http://example.com` (even if ['*'] is used)
-    * MSIE will see `Access-Control-Allow-Origin: *`, for the allowed origins. (`withCredentials` is broken in MSIE)
+origins
+---
 
-  * methods - any HTTP verb will do
-  * headers - used for both `Access-Control-Exposed-Headers` and `Access-Contral-Allowed-Headers`
-    * TODO make thoes separate
+an array of origins. `undefined`, `null`, `[]`, and `['*']` will all default to '*'
 
-  * credentials - allows XHR2 clients to sepecify `withCredentials = true`, which will send `Cookies` and `HTTP Basic Auth`
-    * broken for XDR in MSIE
+  * Example: `['http://example.com', 'http://domain.tld']`
+  * Browsers will see their origin exactly `Access-Control-Allow-Origin: http://example.com` (even if ['*'] is used)
+  * MSIE will see `Access-Control-Allow-Origin: *`, for the allowed origins. (`withCredentials` is broken in MSIE)
 
-  * resources - an array of "directive" objects
-    * pattern (string prefix) - '/path/to' will match '/path/too...', '/path/to/res...', but NOT '/some/path/to...'
-    * pattern (RegExp) - use your own regex matching (to your own peril)
-      * Please see [http://stackoverflow.com/questions/3446170/escape-string-for-use-in-javascript-regex/6969486#6969486](Escape string for use in Javascript regex) to avoid ugly bugs when creating dynamic regex for paths
+methods
+---
+
+any HTTP verb will do
+
+headers
+---
+
+used for both `Access-Control-Exposed-Headers` and `Access-Contral-Allowed-Headers`
+
+  * TODO make those separate
+
+
+credentials
+---
+
+allows XHR2 clients to sepecify `withCredentials = true`, which will send `Cookies` and `HTTP Basic Auth`
+
+  * broken for XDR in MSIE
+
+resources
+---
+
+an array of "directive" objects
+
+pattern
+---
+
+  * pattern (string prefix) - '/path/to' will match '/path/too...', '/path/to/res...', but NOT '/some/path/to...'
+  * pattern (RegExp) - use your own regex matching (to your own peril)
+    * Please see [http://stackoverflow.com/questions/3446170/escape-string-for-use-in-javascript-regex/6969486#6969486](Escape string for use in Javascript regex) to avoid ugly bugs when creating dynamic regex for paths
 
 Tests
 ===
