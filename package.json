@@ -1,0 +1,25 @@
+{
+    "author": "Antono Vasiljev <antono.vasiljev@gmail.com> (http://antono.info)",
+    "contributors": [
+        "AJ ONeal <coolaj86@gmail.com> (http://coolaj86.info)"
+    ],
+    "name": "connect-cors",
+    "description": "CORS / XHR2 support for Node.JS's Connect",
+    "version": "0.5.0",
+    "homepage": "https://github.com/antono/connect-cors",
+    "repository": {
+        "type": "git",
+        "url": "git://github.com/antono/connect-cors.git"
+    },
+    "main": "./lib/connect-cors.js",
+    "engines": {
+        "node": ">= 0.4.0"
+    },
+    "dependencies": {
+        "connect": ">= 1.6.4"
+    },
+    "devDependencies": {
+        "jasmine-node": ">= 1.0.6"
+    },
+    "licenses": [{"type": "MIT"}]
+}
