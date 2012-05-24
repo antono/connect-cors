@@ -96,6 +96,7 @@ create = (config) ->
       methods = selectNotEmpty(obj.methods, config.methods)
       headers = selectNotEmpty(obj.headers, config.headers)
       origins = selectNotEmpty(obj.origins, config.origins) || defaultOrigins
+      credentials = selectNotEmpty(obj.credentials, config.credentials)
       origin  = req.headers.origin
 
       # 5.1.2, 5.2.2
