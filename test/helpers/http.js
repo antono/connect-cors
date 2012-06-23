@@ -7,7 +7,7 @@ var connect = require('connect'),
     assert = require('assert'),
     http = require('http'),
     net = require('net'),
-    sys = require('sys');
+    util = require('util');
 
 /**
  * Test base port.
@@ -57,7 +57,7 @@ connect.Server.prototype.listen = function(){
                 if (expectedBody !== undefined) {
                     assert.equal(expectedBody,
                         res.body,
-                        msg + ' response body of ' + sys.inspect(expectedBody) + ', got ' + sys.inspect(res.body));
+                        msg + ' response body of ' + util.inspect(expectedBody) + ', got ' + util.inspect(res.body));
                 }
                 assert.equal(expectedStatus,
                     res.statusCode,
