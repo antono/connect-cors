@@ -1,3 +1,4 @@
+[![build status](https://secure.travis-ci.org/antono/connect-cors.png)](http://travis-ci.org/antono/connect-cors)
 Connect CORS
 ====
 
