@@ -1,5 +1,5 @@
 # Connect CORS
-# Copyright (c) 2010 Antono Vasiljev
+# Copyright (c) 2010-2013 Antono Vasiljev
 # MIT Licensed
 "use strict"
 
@@ -42,26 +42,25 @@ url = require("url")
 
 # TODO: allow headers vs expose headers
 defaults =
-  origins: []
-  methods: ['HEAD', 'GET', 'POST']
+  origins: [] # defaults to '*'
+  methods: ['HEAD', 'GET', 'POST', 'PUT', 'DELETE']
   headers: ['X-Requested-With', 'X-HTTP-Method-Override', 'Content-Type', 'Accept']
   credentials: false
   resources: []  # defaults to '/', which defaults to the above
 
 defaultResources = [pattern: '/']
-defaultOrigins = ['*']
+defaultOrigins   = ['*']
 
 # MSIE <7 doesn't support CORS
 # MSIE == 8 only allows origin '*' and does not allow withCredentials
-msiePattern = /MSIE/i
+msiePattern  = /MSIE/i
 operaPattern = /Opera/i
 
 isMSIE = (req) ->
-  agent = req.headers['user-agent'];
+  agent = req.headers['user-agent']
   return no unless agent?
-  if agent.match(msiePattern) and not agent.match(operaPattern)
-  then yes
-  else no
+  if agent.match(msiePattern) and not agent.match(operaPattern) then return yes
+  return no
 
 selectNotEmpty = (a, b) ->
   return a if a?.length
@@ -86,7 +85,7 @@ create = (config) ->
 
   # TODO
   # a lot of stuff in this loop could be 'pre-compiled', but then the options wouldn't be 'hot-editable'
-  corsHandler = (req, res, next) ->
+  return corsHandler = (req, res, next) ->
     origin    = (req.headers.origin || '').toLowerCase() || undefined # purposefully breaks `case-sensitive` rule of 5.1.2
     resource  = url.parse(req.url).pathname
     resources = selectNotEmpty(config.resources, defaultResources)
@@ -96,8 +95,8 @@ create = (config) ->
       methods = selectNotEmpty(obj.methods, config.methods)
       headers = selectNotEmpty(obj.headers, config.headers)
       origins = selectNotEmpty(obj.origins, config.origins) || defaultOrigins
-      credentials = selectNotEmpty(obj.credentials, config.credentials)
       origin  = req.headers.origin
+      credentials = selectNotEmpty(obj.credentials, config.credentials)
 
       # 5.1.2, 5.2.2
       # Split the value of the Origin header on the U+0020 SPACE character
@@ -137,7 +136,8 @@ create = (config) ->
       # NOTE:
       # 'Access-Control-Request-Method' is only for the OPTIONS pre-flight
       # 'method' is for the regular requests
-      if methods.indexOf(String(req.headers['access-control-request-method'] || req.method).toUpperCase()) is -1
+      accessControlRequestMethod = String(req.headers['access-control-request-method'] || req.method).toUpperCase()
+      if methods.indexOf(accessControlRequestMethod) is -1
         # Options should be allowed even if it isn't allowed
         if req.method.toUpperCase() isnt 'OPTIONS' then return no
 
@@ -194,7 +194,8 @@ create = (config) ->
       # POST
       if methods.length then res.setHeader('Access-Control-Allow-Methods', methods.join(', '))
       # no need to iterate further
-      return true # end resourceHandler()
+      return true
+      # end resourceHandler()
 
     # 5.1.1, 5.2.1
     # If the Origin header is not present terminate this set of steps.
@@ -211,8 +212,7 @@ create = (config) ->
     # pre-flighted requests don't need a body, just headers
     if req.method.match(/^OPTIONS$/i) then return res.end()
 
-    next() # end of corsHandler
-
-  return corsHandler
+    next()
+    # end of corsHandler
 
 module.exports = create
