@@ -1,7 +1,5 @@
 test:
-	@./support/expresso/bin/expresso \
-		-I lib \
-		-I support/connect/lib/connect \
-		test/*.test.js
+	./test/test-default-config.curl
+	./test/test-global-settings.curl
 
 .PHONY: test

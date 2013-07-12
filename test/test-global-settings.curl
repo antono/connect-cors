@@ -2,12 +2,7 @@
 
 HOST="localhost:9000"
 PASS='[PASS]'
-FAIL='--- FAIL ---'
-
-clear
-echo
-echo "Each test will print '${PASS}' or '${FAIL}"
-echo
+FAIL='!FAIL!'
 
 #
 # Test that without Origin, the request sets no CORS headers
@@ -63,5 +58,3 @@ curl http://${HOST} --include --silent \
   -H 'X-Method-Override: GET' \
   | grep 'Access-Control-Allow-Origin: *' >/dev/null \
   && echo "${PASS}" || echo "${FAIL}"
-
-echo
