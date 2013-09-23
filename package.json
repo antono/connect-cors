@@ -5,7 +5,7 @@
     ],
     "name": "connect-cors",
     "description": "CORS / XHR2 support for Node.JS's Connect",
-    "version": "0.5.1",
+    "version": "0.5.5",
     "homepage": "https://github.com/antono/connect-cors",
     "repository": {
         "type": "git",
