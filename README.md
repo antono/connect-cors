@@ -1,5 +1,6 @@
 # Connect CORS
 
+DEPRECATED! Use https://www.npmjs.com/package/cors instead
 
 A CORS module for Node.JS's Connect
 "pre-flighted" OPTIONS requests are supported
